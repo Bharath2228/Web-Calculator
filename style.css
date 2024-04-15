@@ -1,0 +1,49 @@
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.title-el{
+    margin-top: 10px;
+    margin-bottom: 0px;
+    position: absolute;
+    color: black;
+    padding: 10px 40px;
+    border-radius: 15px;
+    font-weight: bold;
+    text-shadow: black 1px 0 4px;
+    -webkit-animation: animate_bg 5s;
+    animation: animate_bg 5s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+
+}
+
+@keyframes animate_bg {
+
+    0% {background: #DBAFA0;}
+    20% {background: #A3FFD6;}
+    40% {background: #7BC9FF;}
+    60% {background: #7EA1FF;}
+    80% {background: #D862BC;}
+    100% {background: #77B0AA;}
+
+}
+
+@-webkit-keyframes animate_bg {
+
+    0% {background: #DBAFA0;}
+    20% {background: #A3FFD6;}
+    40% {background: #7BC9FF;}
+    60% {background: #7EA1FF;}
+    80% {background: #D862BC;}
+    100% {background: #77B0AA;}
+
+}
