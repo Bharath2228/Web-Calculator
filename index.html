@@ -17,39 +17,39 @@
             <div class="calculator-box">
                 <div class="display-first-box">
                     <div class="display-box">
-                        <div class="digit-disp"><h1 id="number-el">0</h2></div>
+                        <div class="digit-disp"><h1 id="number-el"></h1></div>
                     </div>
                     <div class="first-row">
-                        <div class="btn"><button>+/-</button></div>
-                        <div class="btn"><button>Pi</button></div>
-                        <div class="btn"><button>e</button></div>
-                        <div class="btn"><button>CE</button></div>
-                        <div class="btn"><button><i class="fa-solid fa-delete-left"></i></button></i></div>
+                        <div class="btn"><button onclick="append('-')" >+/-</button></div>
+                        <div class="btn"><button onclick="append(3.14159)">Pi</button></div>
+                        <div class="btn"><button onclick="append('e')">e</button></div>
+                        <div class="btn"><button onclick="clearDisp()">AC</button></div>
+                        <div class="btn"><button onclick="removeele()"><i class="fa-solid fa-delete-left"></i></button></i></div>
                     </div>
                 </div>
                 <div class="num-operator-box">
                     <div class="num-box">
-                        <div class="btn"><button id="num7btn">7</button></div>
-                        <div class="btn"><button id="num8-el" >8</button></div>
-                        <div class="btn"><button id="num9-el" >9</button></div>
-                        <div class="btn"><button id="num4-el" >4</button></div>
-                        <div class="btn"><button id="num5-el" >5</button></div>
-                        <div class="btn"><button id="num6-el" >6</button></div>
-                        <div class="btn"><button id="num1-el" >1</button></div>
-                        <div class="btn"><button id="num2-el" >2</button></div>
-                        <div class="btn"><button id="num3-el" >3</button></div>
-                        <div class="btn"><button >C</button></div>
-                        <div class="btn"><button id="num0-el" >0</button></div>
-                        <div class="btn"><button>,</button></div>
+                        <div class="btn"><button onclick="append(7)">7</button></div>
+                        <div class="btn"><button onclick="append(8)" >8</button></div>
+                        <div class="btn"><button onclick="append(9)" >9</button></div>
+                        <div class="btn"><button onclick="append(4)" >4</button></div>
+                        <div class="btn"><button onclick="append(5)" >5</button></div>
+                        <div class="btn"><button onclick="append(6)" >6</button></div>
+                        <div class="btn"><button onclick="append(1)" >1</button></div>
+                        <div class="btn"><button onclick="append(2)" >2</button></div>
+                        <div class="btn"><button onclick="append(3)" >3</button></div>
+                        <div class="btn"><button onclick="append('%')">%</button></div>
+                        <div class="btn"><button onclick="append(0)" >0</button></div>
+                        <div class="btn"><button onclick="append('.')">.</button></div>
                     </div>
                     <div class="operator-box">
-                        <div class="btn"><button><i class="fa-solid fa-plus"></i></button></div>
-                        <div class="btn"><button><i class="fa-solid fa-minus"></i></button></div>
-                        <div class="btn"><button><i class="fa-solid fa-divide"></i></button></div>
-                        <div class="btn"><button><i class="fa-solid fa-xmark"></i></button></div>
-                        <div class="btn"><button>log</button></div>
-                        <div class="btn"><button>ln</button></div>
-                        <div class="btn"><button id="equalto-el">=</button></div>
+                        <div class="btn"><button onclick="append('+')"><i class="fa-solid fa-plus"></i></button></div>
+                        <div class="btn"><button onclick="append('-')"><i class="fa-solid fa-minus"></i></button></div>
+                        <div class="btn"><button onclick="append('/')"><i class="fa-solid fa-divide"></i></button></div>
+                        <div class="btn"><button onclick="append('*')"><i class="fa-solid fa-xmark"></i></button></div>
+                        <div class="btn"><button onclick="calLog('log')">log</button></div>
+                        <div class="btn"><button onclick="append('ln')">ln</button></div>
+                        <div class="btn"><button onclick="calculate()" id="equalto-el">=</button></div>
                     </div>
                 </div>
             </div>
