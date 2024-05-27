@@ -8,19 +8,29 @@
 .app{
     display: flex;
     justify-content: center;
+    background-color: #3b3e47;
     align-items: center;
     height: 100vh;
 }
 
 .calculator{
     width: 100%;
-    background-color: hsla(0, 80%, 0%, 0.975);
-    min-height: 640px;
+    background-color: hsla(0, 3%, 12%, 0.975);
+    min-height: 540px;
     max-width: 375px;
     display: flex;
     flex-direction: column;
     border-radius: 1.5rem;
     overflow: hidden;
+    box-sizing: border-box;
+}
+
+.calculator h1{
+    position: absolute;
+    margin-left: 20px;
+    text-align: center;
+    margin-top: 20px;
+    color: white;
 }
 
 .display{
@@ -45,8 +55,9 @@
 
 .display .input{
     width: 100%;
-	font-size: 1.25rem;
-	margin-bottom: 0.5rem;;
+	font-size: 1.5rem;
+	margin-bottom: 0.5rem;
+    letter-spacing: 4px;
 }
 
 .display .output{
@@ -57,17 +68,16 @@
 }
 
 .display .operator{
-    color: red;
+    color: #EB6666;
 }
 
 .display .brackets,
 .display .percent{
-    color: blue;
+    color: #26FED7; 
 }
 
-
 .keys{
-    background-color: hsl(0, 8%, 10%);
+    background-color: hsl(0, 9%, 13%);
     padding: 1.5rem;
     border-radius: 1.5rem 1.5rem 0 0;
     display: grid;
