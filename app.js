@@ -16,7 +16,8 @@ keys.forEach(key => {
             input = input.slice(0, -1)
             displayInput.innerHTML = cleanInput(input);
         }else if(value == "="){
-            let result = eval(PrepareInput(input));  // gonna change it later
+            // let result = eval(PrepareInput(input));  // gonna change it later
+            let result = CalculationFunction(input)
             displayOutput.innerHTML = cleanOutput(result);
 
         }else if(value == "brackets"){
@@ -117,4 +118,58 @@ function ValidateInput(value){
     }
 
     return true;
+}
+
+function CalculationFunction(expression){
+
+    expression_array = expression.split('');
+
+  for (let element in expression_array) {
+    if (expression_array[element] === ' ') {
+      expression_array.splice(element, 1);
+    }
+  }
+
+  let currNumber = [];
+  let operator = [];
+
+  for (let char in expression_array) {
+    if (!isNaN(expression_array[char])) {
+      currNumber.push(expression_array[char]);
+    } else {
+      operator.push(expression_array[char]);
+      if (currNumber.length > 0) {
+        currNumber.push(parseFloat(currNumber.join('')));
+        currNumber = [];
+      }
+    }
+  }
+
+  if (currNumber.length > 0) {
+    currNumber.push(parseFloat(currNumber.join('')));
+  }
+
+  let result = currNumber[0];
+  for (let i = 0; i < operator.length; i++) {
+    const num2 = currNumber[i + 1];
+    switch (operator[i]) {
+      case "+":
+        result += num2;
+        break;
+      case "-":
+        result -= num2;
+        break;
+      case "*":
+        result *= num2;
+        break;
+      case "/":
+        if (num2 === 0) {
+          return "Error: Division by zero";
+        }
+        result /= num2;
+        break;
+    }
+  }
+
+  return result;
 }
