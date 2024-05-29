@@ -11,102 +11,30 @@
 <body>
 
     <div class="app">
-        <div class="calculator">
-            <h1>Web Calculator </h1>
-            <div class="display">
-                <div class="content">
-                    <div class="input"></div>
-                    <div class="output"></div>
-                </div>
+        <div class="calculator-grid">
+            <div class="output">
+              <div data-previous-operand class="previous-operand"></div>
+              <div data-current-operand class="current-operand"></div>
             </div>
-
-            <div class="keys">
-
-                <div data-key = "clear" class="key action">
-                    <span>AC</span>
-                </div>
-
-                <div data-key="brackets" class="key action">
-                    <span>()</span>
-                </div>
-
-                <div data-key="%" class="key operator">
-                    <span>%</span>
-                </div>
-
-                <div data-key="/" class="key operator">
-					<span>÷</span>
-				</div>
-
-                <div data-key="7" class="key">
-                    <span>7</span>
-                </div>
-
-                <div data-key="8" class="key">
-                    <span>8</span>
-                </div>
-
-                <div data-key="9" class="key">
-                    <span>9</span>
-                </div>
-
-                <div data-key="*" class="key operator">
-                    <span>x</span>
-                </div>
-
-                <div data-key="4" class="key">
-                    <span>4</span>
-                </div>
-
-                <div data-key="5" class="key">
-                    <span>5</span>
-                </div>
-
-                <div data-key="6" class="key">
-                    <span>6</span>
-                </div>
-
-                <div data-key="-" class="key operator">
-                    <span>-</span>
-                </div>
-
-                <div data-key="1" class="key">
-					<span>1</span>
-				</div>
-
-				<div data-key="2" class="key">
-					<span>2</span>
-				</div>
-
-				<div data-key="3" class="key">
-					<span>3</span>
-				</div>
-
-				<div data-key="+" class="key operator">
-					<span>+</span>
-				</div>
-
-                <div data-key="backspace" class="key action">
-                    <span><i class="fa-solid fa-delete-left"></i></span>
-                </div>
-
-                <div data-key="0" class="key">
-					<span>0</span>
-				</div>
-
-				<div data-key="." class="key">
-					<span>.</span>
-				</div>
-				
-				<div data-key="=" class="key operator">
-					<span>=</span>
-				</div>
-
-            </div>
-
-        </div>
-
-    </div>
+            <button data-all-clear class="span-two">AC</button>
+            <button data-delete>DEL</button>
+            <button data-operation>÷</button>
+            <button data-number>1</button>
+            <button data-number>2</button>
+            <button data-number>3</button>
+            <button data-operation>x</button>
+            <button data-number>4</button>
+            <button data-number>5</button>
+            <button data-number>6</button>
+            <button data-operation>+</button>
+            <button data-number>7</button>
+            <button data-number>8</button>
+            <button data-number>9</button>
+            <button data-operation>-</button>
+            <button data-number>.</button>
+            <button data-number>0</button>
+            <button data-equals class="span-two">=</button>
+          </div>
 
     <script src="app.js"></script>
 </body>

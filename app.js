@@ -1,175 +1,127 @@
-const keys = document.querySelectorAll('.key')
-const displayInput = document.querySelector(".display .input")
-const displayOutput = document.querySelector(".display .output")
+const numberButtons = document.querySelectorAll('[data-number]')
+const operationButtons = document.querySelectorAll('[data-operation]')
+const equalsButton = document.querySelector('[data-equals]')
+const deletesButton = document.querySelector('[data-delete]')
+const allClearButton = document.querySelector('[data-all-clear]')
+const previousOperandTextElement = document.querySelector('[data-previous-operand]')
+const currentOperandTextElement = document.querySelector('[data-current-operand]')
 
-let input = "";
+class Calculator {
+    constructor(previousOperandTextElement, currentOperandTextElement){
+        this.previousOperandTextElement = previousOperandTextElement;
+        this.currentOperandTextElement = currentOperandTextElement;
+        this.clear()
+    }
 
-keys.forEach(key => {
-    let value = key.dataset.key;
-    
-    key.addEventListener('click', () => {
-        if (value == "clear"){
-            input = "";
-            displayInput.innerHTML = "";
-            displayOutput.innerHTML = "";
-        }else if(value == "backspace"){
-            input = input.slice(0, -1)
-            displayInput.innerHTML = cleanInput(input);
-        }else if(value == "="){
-            // let result = eval(PrepareInput(input));  // gonna change it later
-            let result = CalculationFunction(input)
-            displayOutput.innerHTML = cleanOutput(result);
+    clear(){
+        this.currentOperand = ''
+        this.previousOperand = ''
+        this.operation = undefined
+    }
 
-        }else if(value == "brackets"){
-            if(input.indexOf("(") == -1 || 
-               input.indexOf("(") != -1 && 
-               input.indexOf(")") != -1 && 
-               input.lastIndexOf("(") < input.lastIndexOf(")")){
-                input += "(";
-            } else if(input.indexOf("(") != -1 && 
-                      input.indexOf(")") == -1 || 
-                      input.indexOf("(") != -1 && 
-                      input.indexOf(")") != -1 && 
-                      input.lastIndexOf("(") > input.lastIndexOf(")")){
-                input += ")";
-            } 
+    delete(){
+        this.currentOperand = this.currentOperand.toString().slice(0, -1)
+    }
 
-            displayInput.innerHTML = cleanInput(input);
-        } else{
-            if (ValidateInput(value)){
-                input += value;
-                displayInput.innerHTML = cleanInput(input);
-            }
+    appendNumber(number){
+        if(number === '.' && this.currentOperand.includes('.')) return
+        this.currentOperand = this.currentOperand.toString() + number.toString()
+    }
+
+    chooseOpeartion(operation){
+        if(this.currentOperand === '') return
+        if(this.previousOperand !== '') {
+            this.compute()
         }
-    }) 
+        this.operation = operation;
+        this.previousOperand = this.currentOperand
+        this.currentOperand = ''
     }
-)
 
-function cleanInput(input){
-    let input_array = input.split("")
+    compute(){
+        let computation
+        const prev = parseFloat(this.previousOperand)
+        const current = parseFloat(this.currentOperand)
+        if(isNaN(prev) || isNaN(current)) return
 
-    for(let i = 0; i < input_array.length; i++){
-        if (input_array[i] == '*'){
-            input_array[i] = `<span class="operator">x</span>`;
-        } else if(input_array[i] == '/'){
-            input_array[i] = `<span class="operator">÷</span>`;
-        } else if (input_array[i] == '-'){
-            input_array[i] = `<span class="operator">-</span>`;
-        } else if(input_array[i] == '+'){
-            input_array[i] = `<span class="operator">+</span>`;
-        }else if (input_array[i] == '('){
-            input_array[i] = `<span class="brackets">(</span>`;
-        } else if (input_array[i] == ')'){
-            input_array[i] = `<span class="brackets">)</span>`;
-        } else if(input_array[i] == '%'){
-            input_array[i] = `<span class = "percent">%</span>`;
+        switch (this.operation){
+            case '+':
+                computation = prev + current;
+                break;
+            case '-':
+                computation = prev - current;
+                break;
+            case 'x':
+                computation = prev * current;
+                break;
+            case '÷':
+                computation = prev / current;
+                break;
+            default:
+                return
         }
+        this.currentOperand = computation;
+        this.operation = undefined;
+        this.previousOperand = ''
     }
 
-    return input_array.join('')
-}
-
-function cleanOutput(output){
-    let output_string = output.toString();
-    let decimal = output_string.split(".")[1];
-    output_string = output_string.split(".")[0];
-
-    output_array = output_string.split("")
-
-    if (output_array.length > 3){
-        for (let i = output_array.length - 3; i > 0; i -= 3){
-            output_array.splice(i, 0, ",")
-        }
-    }
-
-    if (decimal) {
-        output_array.push(".");
-        output_array.push(decimal);
-    }
-
-    return output_array.join("");
-}
-
-function PrepareInput(input){
-    let input_array = input.split("")
-
-    for (let i = 0; i < input_array.length; i++){
-        if(input_array[i] == "%"){
-            input_array[i] == "/100"
-        }
-    }
-
-    return input_array.join("")
-}
-
-function ValidateInput(value){
-    let last_input = input.slice(-1)
-    let operators = ["+", "-", "*", "/"]
-
-    if(value == "." && last_input == "."){
-        return false
-    }
-
-    if (operators.includes(value)){
-        if (operators.includes(last_input)){
-            return false;
-        }
-        return true;
-    }
-
-    return true;
-}
-
-function CalculationFunction(expression){
-
-    expression_array = expression.split('');
-
-  for (let element in expression_array) {
-    if (expression_array[element] === ' ') {
-      expression_array.splice(element, 1);
-    }
-  }
-
-  let currNumber = [];
-  let operator = [];
-
-  for (let char in expression_array) {
-    if (!isNaN(expression_array[char])) {
-      currNumber.push(expression_array[char]);
+    getDisplayNumber(number){
+        const stringNumber = number.toString()
+    const integerDigits = parseFloat(stringNumber.split('.')[0])
+    const decimalDigits = stringNumber.split('.')[1]
+    let integerDisplay
+    if (isNaN(integerDigits)) {
+      integerDisplay = ''
     } else {
-      operator.push(expression_array[char]);
-      if (currNumber.length > 0) {
-        currNumber.push(parseFloat(currNumber.join('')));
-        currNumber = [];
-      }
+      integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 })
+    }
+    if (decimalDigits != null) {
+      return `${integerDisplay}.${decimalDigits}`
+    } else {
+      return integerDisplay
     }
   }
 
-  if (currNumber.length > 0) {
-    currNumber.push(parseFloat(currNumber.join('')));
-  }
 
-  let result = currNumber[0];
-  for (let i = 0; i < operator.length; i++) {
-    const num2 = currNumber[i + 1];
-    switch (operator[i]) {
-      case "+":
-        result += num2;
-        break;
-      case "-":
-        result -= num2;
-        break;
-      case "*":
-        result *= num2;
-        break;
-      case "/":
-        if (num2 === 0) {
-          return "Error: Division by zero";
+    updateDisplay() {
+        this.currentOperandTextElement.innerText =
+        this.getDisplayNumber(this.currentOperand)
+        if (this.operation != null) {
+        this.previousOperandTextElement.innerText =
+            `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+        } else {
+        this.previousOperandTextElement.innerText = ''
         }
-        result /= num2;
-        break;
     }
-  }
-
-  return result;
 }
+
+const calaculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
+
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calaculator.appendNumber(button.innerText)
+        calaculator.updateDisplay()
+    })
+})
+
+operationButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calaculator.chooseOpeartion(button.innerText)
+        calaculator.updateDisplay()
+    })
+})
+
+equalsButton.addEventListener('click', button => {
+    calaculator.compute()
+    calaculator.updateDisplay()
+})
+
+allClearButton.addEventListener('click', button => {
+    calaculator.clear()
+    calaculator.updateDisplay()
+})
+
+deletesButton.addEventListener('click', button => {
+    calaculator.delete()
+    calaculator.updateDisplay()
+})
